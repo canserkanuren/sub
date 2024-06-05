@@ -14,7 +14,32 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@spartan-ng/ui-button-helm": [
+        "packages/primitives/ui-button-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-card-helm": [
+        "packages/primitives/ui-card-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-dialog-helm": [
+        "packages/primitives/ui-dialog-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-input-helm": [
+        "packages/primitives/ui-input-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-label-helm": [
+        "packages/primitives/ui-label-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-skeleton-helm": [
+        "packages/primitives/ui-skeleton-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-table-helm": [
+        "packages/primitives/ui-table-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-typography-helm": [
+        "packages/primitives/ui-typography-helm/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
