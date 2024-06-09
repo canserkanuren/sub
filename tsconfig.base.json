@@ -10,7 +10,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -38,8 +41,17 @@
       ],
       "@spartan-ng/ui-typography-helm": [
         "packages/primitives/ui-typography-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-checkbox-helm": [
+        "packages/primitives/ui-checkbox-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-icon-helm": [
+        "packages/primitives/ui-icon-helm/src/index.ts"
       ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

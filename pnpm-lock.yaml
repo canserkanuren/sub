@@ -4,40 +4,49 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@supabase/supabase-js>@supabase/gotrue-js': 2.61.0
+
 dependencies:
   '@angular/animations':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/core@18.0.2)
   '@angular/cdk':
     specifier: ^18.0.2
     version: 18.0.2(@angular/common@18.0.2)(@angular/core@18.0.2)(rxjs@7.8.1)
   '@angular/common':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/core@18.0.2)(rxjs@7.8.1)
   '@angular/compiler':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/core@18.0.2)
   '@angular/core':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(rxjs@7.8.1)(zone.js@0.14.6)
   '@angular/forms':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/common@18.0.2)(@angular/core@18.0.2)(@angular/platform-browser@18.0.2)(rxjs@7.8.1)
   '@angular/platform-browser':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/animations@18.0.2)(@angular/common@18.0.2)(@angular/core@18.0.2)
   '@angular/platform-browser-dynamic':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/common@18.0.2)(@angular/compiler@18.0.2)(@angular/core@18.0.2)(@angular/platform-browser@18.0.2)
   '@angular/router':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/common@18.0.2)(@angular/core@18.0.2)(@angular/platform-browser@18.0.2)(rxjs@7.8.1)
+  '@ng-icons/core':
+    specifier: ^25.1.0
+    version: 25.6.1
   '@ng-icons/lucide':
     specifier: ^26.3.0
     version: 26.5.0
   '@nx/angular':
     specifier: 19.2.0
     version: 19.2.0(@angular-devkit/build-angular@18.0.2)(@angular-devkit/core@18.0.2)(@angular-devkit/schematics@18.0.2)(@schematics/angular@18.0.2)(@swc-node/register@1.9.1)(@swc/core@1.5.25)(@types/node@18.16.9)(eslint@8.57.0)(nx@19.2.0)(rxjs@7.8.1)(typescript@5.4.5)
+  '@spartan-ng/ui-checkbox-brain':
+    specifier: 0.0.1-alpha.351
+    version: 0.0.1-alpha.351(@angular/cdk@18.0.2)(@angular/common@18.0.2)(@angular/core@18.0.2)(@angular/forms@18.0.2)(@spartan-ng/ui-core@0.0.1-alpha.351)
   '@spartan-ng/ui-core':
     specifier: 0.0.1-alpha.351
     version: 0.0.1-alpha.351(@angular/core@18.0.2)(clsx@1.2.1)(rxjs@7.8.1)(tailwind-merge@2.3.0)(tailwindcss-animate@1.0.7)(tailwindcss@3.4.4)
@@ -50,12 +59,18 @@ dependencies:
   '@spartan-ng/ui-table-brain':
     specifier: 0.0.1-alpha.351
     version: 0.0.1-alpha.351(@angular/cdk@18.0.2)(@angular/core@18.0.2)(@spartan-ng/ui-core@0.0.1-alpha.351)
+  '@supabase/supabase-js':
+    specifier: ^2.43.4
+    version: 2.43.4
   class-variance-authority:
     specifier: ^0.6.0
     version: 0.6.1
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
+  luxon:
+    specifier: ^3.4.4
+    version: 3.4.4
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -68,13 +83,13 @@ dependencies:
 
 devDependencies:
   '@angular-devkit/build-angular':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/compiler-cli@18.0.2)(@swc/core@1.5.25)(@types/node@18.16.9)(jest-environment-jsdom@29.7.0)(jest@29.7.0)(ng-packagr@18.0.0)(stylus@0.59.0)(tailwindcss@3.4.4)(typescript@5.4.5)
   '@angular-devkit/core':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2
   '@angular-devkit/schematics':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2
   '@angular-eslint/eslint-plugin':
     specifier: ^18.0.1
@@ -86,13 +101,13 @@ devDependencies:
     specifier: ^18.0.1
     version: 18.0.1(eslint@8.57.0)(typescript@5.4.5)
   '@angular/cli':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2
   '@angular/compiler-cli':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2(@angular/compiler@18.0.2)(typescript@5.4.5)
   '@angular/language-service':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2
   '@nx/eslint':
     specifier: 19.2.0
@@ -110,7 +125,7 @@ devDependencies:
     specifier: 19.2.0
     version: 19.2.0(@swc-node/register@1.9.1)(@swc/core@1.5.25)
   '@schematics/angular':
-    specifier: ~18.0.0
+    specifier: ~18.0.2
     version: 18.0.2
   '@spartan-ng/cli':
     specifier: 0.0.1-alpha.357
@@ -127,6 +142,9 @@ devDependencies:
   '@types/jest':
     specifier: ^29.4.0
     version: 29.5.12
+  '@types/luxon':
+    specifier: ^3.4.2
+    version: 3.4.2
   '@types/node':
     specifier: 18.16.9
     version: 18.16.9
@@ -170,8 +188,8 @@ devDependencies:
     specifier: ~10.1.3
     version: 10.1.3(postcss@8.4.38)
   prettier:
-    specifier: ^2.8.8
-    version: 2.8.8
+    specifier: ^3.3.1
+    version: 3.3.1
   prettier-eslint:
     specifier: ^16.3.0
     version: 16.3.0
@@ -730,7 +748,7 @@ packages:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@babel/code-frame': 7.24.7
-      '@babel/generator': 7.24.5
+      '@babel/generator': 7.24.7
       '@babel/helper-compilation-targets': 7.24.7
       '@babel/helper-module-transforms': 7.24.7(@babel/core@7.24.5)
       '@babel/helpers': 7.24.7
@@ -1607,6 +1625,20 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /@babel/plugin-transform-async-generator-functions@7.24.7(@babel/core@7.24.5):
+    resolution: {integrity: sha512-o+iF77e3u7ZS4AoAuJvapz9Fm001PuD2V3Lp6OSE4FYQke+cSewYtnek+THqGRWyQloRCyvWL1OkyfNEl9vr/g==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.24.5
+      '@babel/helper-environment-visitor': 7.24.7
+      '@babel/helper-plugin-utils': 7.24.7
+      '@babel/helper-remap-async-to-generator': 7.24.7(@babel/core@7.24.5)
+      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.24.5)
+    transitivePeerDependencies:
+      - supports-color
+
   /@babel/plugin-transform-async-generator-functions@7.24.7(@babel/core@7.24.7):
     resolution: {integrity: sha512-o+iF77e3u7ZS4AoAuJvapz9Fm001PuD2V3Lp6OSE4FYQke+cSewYtnek+THqGRWyQloRCyvWL1OkyfNEl9vr/g==}
     engines: {node: '>=6.9.0'}
@@ -1623,6 +1655,19 @@ packages:
 
   /@babel/plugin-transform-async-to-generator@7.24.1(@babel/core@7.24.5):
     resolution: {integrity: sha512-AawPptitRXp1y0n4ilKcGbRYWfbbzFWz2NqNu7dacYDtFtz0CMjG64b3LQsb3KIgnf4/obcUL78hfaOS7iCUfw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.24.5
+      '@babel/helper-module-imports': 7.24.7
+      '@babel/helper-plugin-utils': 7.24.7
+      '@babel/helper-remap-async-to-generator': 7.24.7(@babel/core@7.24.5)
+    transitivePeerDependencies:
+      - supports-color
+
+  /@babel/plugin-transform-async-to-generator@7.24.7(@babel/core@7.24.5):
+    resolution: {integrity: sha512-SQY01PcJfmQ+4Ash7NE+rpbLFbmqA2GPIgqzxfFTL4t1FKRq4zTms/7htKpoCUI9OcFYgzqfmCdH53s6/jn5fA==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2686,8 +2731,8 @@ packages:
       '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.24.5)
       '@babel/plugin-syntax-unicode-sets-regex': 7.18.6(@babel/core@7.24.5)
       '@babel/plugin-transform-arrow-functions': 7.24.7(@babel/core@7.24.5)
-      '@babel/plugin-transform-async-generator-functions': 7.24.3(@babel/core@7.24.5)
-      '@babel/plugin-transform-async-to-generator': 7.24.1(@babel/core@7.24.5)
+      '@babel/plugin-transform-async-generator-functions': 7.24.7(@babel/core@7.24.5)
+      '@babel/plugin-transform-async-to-generator': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-block-scoped-functions': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-block-scoping': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-class-properties': 7.24.7(@babel/core@7.24.5)
@@ -3918,6 +3963,12 @@ packages:
     requiresBuild: true
     optional: true
 
+  /@ng-icons/core@25.6.1:
+    resolution: {integrity: sha512-o6vCttlzXvDZRYiOKOULr7fsX8gY/DwwxzBSrBQzwa/at+pC0xRoe6uczJ9Ato+y1EDWP/PlrEMAQfvokBA6tQ==}
+    dependencies:
+      tslib: 2.6.3
+    dev: false
+
   /@ng-icons/lucide@26.5.0:
     resolution: {integrity: sha512-rW6iZo2LBlFvnpBLWs400mrKn/34PKt5R+Yfd6ZJz9lxq2TMJfNeJv/V4ylG9vYG3RkPa+KEJ+Q6/8IOceT0NA==}
     dependencies:
@@ -4942,6 +4993,23 @@ packages:
       - webpack-cli
     dev: true
 
+  /@spartan-ng/ui-checkbox-brain@0.0.1-alpha.351(@angular/cdk@18.0.2)(@angular/common@18.0.2)(@angular/core@18.0.2)(@angular/forms@18.0.2)(@spartan-ng/ui-core@0.0.1-alpha.351):
+    resolution: {integrity: sha512-SZftlrqBk89la69Ockcv5c9rh9DDzJj21FZBbO0NEF5w1dNVdL+4m2uxSMWgFExB1lRltmhJ5pzXQB2lJRFIww==}
+    peerDependencies:
+      '@angular/cdk': ^18.0.0
+      '@angular/common': ^18.0.0
+      '@angular/core': ^18.0.0
+      '@angular/forms': ^18.0.0
+      '@spartan-ng/ui-core': 0.0.1-alpha.351
+    dependencies:
+      '@angular/cdk': 18.0.2(@angular/common@18.0.2)(@angular/core@18.0.2)(rxjs@7.8.1)
+      '@angular/common': 18.0.2(@angular/core@18.0.2)(rxjs@7.8.1)
+      '@angular/core': 18.0.2(rxjs@7.8.1)(zone.js@0.14.6)
+      '@angular/forms': 18.0.2(@angular/common@18.0.2)(@angular/core@18.0.2)(@angular/platform-browser@18.0.2)(rxjs@7.8.1)
+      '@spartan-ng/ui-core': 0.0.1-alpha.351(@angular/core@18.0.2)(clsx@1.2.1)(rxjs@7.8.1)(tailwind-merge@2.3.0)(tailwindcss-animate@1.0.7)(tailwindcss@3.4.4)
+      tslib: 2.6.3
+    dev: false
+
   /@spartan-ng/ui-core@0.0.1-alpha.351(@angular/core@18.0.2)(clsx@1.2.1)(rxjs@7.8.1)(tailwind-merge@2.3.0)(tailwindcss-animate@1.0.7)(tailwindcss@3.4.4):
     resolution: {integrity: sha512-s6R432EaSx7hrdNmj3ePZFAkbkC4I2wNZh96pzWBxuUudOx9RaNck6LwtxdeZN2dVgWgi5/EjoFVP4oiLi8IRg==}
     peerDependencies:
@@ -4998,6 +5066,63 @@ packages:
       '@angular/core': 18.0.2(rxjs@7.8.1)(zone.js@0.14.6)
       '@spartan-ng/ui-core': 0.0.1-alpha.351(@angular/core@18.0.2)(clsx@1.2.1)(rxjs@7.8.1)(tailwind-merge@2.3.0)(tailwindcss-animate@1.0.7)(tailwindcss@3.4.4)
       tslib: 2.6.3
+    dev: false
+
+  /@supabase/auth-js@2.64.2:
+    resolution: {integrity: sha512-s+lkHEdGiczDrzXJ1YWt2y3bxRi+qIUnXcgkpLSrId7yjBeaXBFygNjTaoZLG02KNcYwbuZ9qkEIqmj2hF7svw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/functions-js@2.3.1:
+    resolution: {integrity: sha512-QyzNle/rVzlOi4BbVqxLSH828VdGY1RElqGFAj+XeVypj6+PVtMlD21G8SDnsPQDtlqqTtoGRgdMlQZih5hTuw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/node-fetch@2.6.15:
+    resolution: {integrity: sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==}
+    engines: {node: 4.x || >=6.0.0}
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: false
+
+  /@supabase/postgrest-js@1.15.2:
+    resolution: {integrity: sha512-9/7pUmXExvGuEK1yZhVYXPZnLEkDTwxgMQHXLrN5BwPZZm4iUCL1YEyep/Z2lIZah8d8M433mVAUEGsihUj5KQ==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/realtime-js@2.9.5:
+    resolution: {integrity: sha512-TEHlGwNGGmKPdeMtca1lFTYCedrhTAv3nZVoSjrKQ+wkMmaERuCe57zkC5KSWFzLYkb5FVHW8Hrr+PX1DDwplQ==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+      '@types/phoenix': 1.6.4
+      '@types/ws': 8.5.10
+      ws: 8.17.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@supabase/storage-js@2.5.5:
+    resolution: {integrity: sha512-OpLoDRjFwClwc2cjTJZG8XviTiQH4Ik8sCiMK5v7et0MDu2QlXjCAW3ljxJB5+z/KazdMOTnySi+hysxWUPu3w==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/supabase-js@2.43.4:
+    resolution: {integrity: sha512-/pLPaxiIsn5Vaz3s32HC6O/VNwfeddnzS0bZRpOW0AKcPuXroD8pT9G8mpiBlZfpKsMmq6k7tlhW7Sr1PAQ1lw==}
+    dependencies:
+      '@supabase/auth-js': 2.64.2
+      '@supabase/functions-js': 2.3.1
+      '@supabase/node-fetch': 2.6.15
+      '@supabase/postgrest-js': 1.15.2
+      '@supabase/realtime-js': 2.9.5
+      '@supabase/storage-js': 2.5.5
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
     dev: false
 
   /@swc-node/core@1.13.1(@swc/core@1.5.25)(@swc/types@0.1.7):
@@ -5306,6 +5431,10 @@ packages:
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
+  /@types/luxon@3.4.2:
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
+    dev: true
+
   /@types/mime@1.3.5:
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
@@ -5319,6 +5448,10 @@ packages:
 
   /@types/parse-json@4.0.2:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
+
+  /@types/phoenix@1.6.4:
+    resolution: {integrity: sha512-B34A7uot1Cv0XtaHRYDATltAdKx0BvVKNgYNqE4WjtPUa4VQJM7kxeXcVKaH+KS+kCmZ+6w+QaUdcljiheiBJA==}
+    dev: false
 
   /@types/qs@6.9.15:
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -8385,7 +8518,7 @@ packages:
     resolution: {integrity: sha512-pzqtp31nLv/XFOzXGuvhCb8qhjmTVo5vjVk19XE4CRlSWz0KoeJ3bw9XsA7nOp9YBf4qHjwBxkDzKcME/J29Yg==}
     engines: {node: '>=8'}
     dependencies:
-      '@babel/core': 7.24.5
+      '@babel/core': 7.24.7
       '@babel/parser': 7.24.7
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
@@ -9254,6 +9387,11 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /luxon@3.4.4:
+    resolution: {integrity: sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
@@ -10642,12 +10780,6 @@ packages:
       - supports-color
     dev: true
 
-  /prettier@2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
-    dev: true
-
   /prettier@3.3.1:
     resolution: {integrity: sha512-7CAwy5dRsxs8PHXT3twixW9/OEll8MLE0VRPCJyl7CkS6VHGPSlsVaWTiASPTyGyYRyApxlaWTzwUxVNrhcwDg==}
     engines: {node: '>=14'}
@@ -10810,7 +10942,7 @@ packages:
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.7
 
   /regex-parser@2.3.0:
     resolution: {integrity: sha512-TVILVSz2jY5D47F4mA4MppkBrafEaiUWJO/TcZHEIuI13AqoZMkK1WMA4Om1YkYbTx+9Ki1/tSUXbceyr9saRg==}
@@ -11777,6 +11909,10 @@ packages:
       universalify: 0.2.0
       url-parse: 1.5.10
 
+  /tr46@0.0.3:
+    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+    dev: false
+
   /tr46@3.0.0:
     resolution: {integrity: sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==}
     engines: {node: '>=12'}
@@ -12195,6 +12331,10 @@ packages:
   /weak-lru-cache@1.2.2:
     resolution: {integrity: sha512-DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw==}
 
+  /webidl-conversions@3.0.1:
+    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
+    dev: false
+
   /webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
@@ -12464,6 +12604,13 @@ packages:
     dependencies:
       tr46: 3.0.0
       webidl-conversions: 7.0.0
+
+  /whatwg-url@5.0.0:
+    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
+    dependencies:
+      tr46: 0.0.3
+      webidl-conversions: 3.0.1
+    dev: false
 
   /which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
