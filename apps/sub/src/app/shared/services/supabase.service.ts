@@ -6,14 +6,10 @@ import { Subscription } from '../models/subscription.model';
 
 @Injectable({ providedIn: 'root' })
 export class SupabaseService {
-  supabase: SupabaseClient;
-
-  constructor() {
-    this.supabase = createClient(
-      environment.SUPABASE_URL,
-      environment.SUPABASE_KEY
-    );
-  }
+  supabase: SupabaseClient = createClient(
+    environment.SUPABASE_URL,
+    environment.SUPABASE_KEY
+  );
 
   async addSub(subscription: Subscription): Promise<void> {
     const now = DateTime.now().toFormat('yyyyMMdd_HHmmss');
@@ -43,6 +39,15 @@ export class SupabaseService {
       throw new Error('failed to send attachment');
     }
 
+    const { error: signatureError, data: signatureData } =
+      await this.supabase.storage
+        .from('identityCards')
+        .upload(`${uniqueId}/signature`, subscription.signature);
+
+    if (signatureError) {
+      throw new Error('failed to send signature');
+    }
+
     const { error } = await this.supabase.from('subscriptions').insert({
       unique_id: uniqueId,
       last_name: subscription.lastName,
@@ -51,8 +56,9 @@ export class SupabaseService {
       address: subscription.address,
       zipcode: subscription.zipcode,
       city: subscription.city,
-      identity_card_recto_url: identityCardRectoData.path,
-      identity_card_verso_url: identityCardVersoData.path
+      identity_card_recto_url: identityCardRectoData?.path,
+      identity_card_verso_url: identityCardVersoData?.path,
+      signature_url: signatureData?.path
     });
 
     if (error) {

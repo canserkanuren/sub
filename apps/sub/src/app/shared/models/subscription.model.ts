@@ -7,6 +7,7 @@ export class Subscription {
   city!: string;
   identityCardRecto!: File;
   identityCardVerso!: File;
+  signature!: File;
   receiptNeeded!: boolean;
 
   constructor(model?: unknown) {

@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  inject
+  inject,
+  viewChild
 } from '@angular/core';
 import {
   FormBuilder,
@@ -26,8 +27,12 @@ import {
   HlmInputErrorDirective
 } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { Subscription } from '../shared/models/subscription.model';
-import { SupabaseService } from '../shared/services/supabase.service';
+import {
+  SignatureComponent,
+  SignatureModule
+} from '@syncfusion/ej2-angular-inputs';
+import { Subscription } from '../../shared/models/subscription.model';
+import { SupabaseService } from '../../shared/services/supabase.service';
 
 @Component({
   selector: 'app-subscription',
@@ -50,7 +55,9 @@ import { SupabaseService } from '../shared/services/supabase.service';
     HlmCardHeaderDirective,
     HlmCardTitleDirective,
 
-    HlmCheckboxComponent
+    HlmCheckboxComponent,
+
+    SignatureModule
   ],
   template: `
     <section hlmCard>
@@ -230,6 +237,31 @@ import { SupabaseService } from '../shared/services/supabase.service';
           Would you like a receipt ?
         </label>
 
+        <span class="flex justify-between items-center">
+          <label hlmLabel>Signature</label>
+
+          <button
+            hlmBtn
+            variant="secondary"
+            (click)="resetSignature()"
+            type="button"
+          >
+            Reset
+          </button>
+        </span>
+
+        <canvas
+          ejs-signature
+          [saveWithBackground]="true"
+          (change)="updateSignature()"
+        ></canvas>
+        @if (
+          form.get('signature')?.touched &&
+          form.get('signature')?.errors?.['required']
+        ) {
+          <span hlmInputError>This field is required.</span>
+        }
+
         <button hlmBtn type="submit">Valider</button>
       </form>
     </section>
@@ -238,8 +270,9 @@ import { SupabaseService } from '../shared/services/supabase.service';
 export class SubscriptionComponent {
   readonly cdr = inject(ChangeDetectorRef);
   readonly formBuilder = inject(FormBuilder);
-
   readonly supabaseService = inject(SupabaseService);
+
+  signature = viewChild.required(SignatureComponent);
 
   form: FormGroup = this.formBuilder.group({
     mail: ['', Validators.compose([Validators.required, Validators.email])],
@@ -250,6 +283,7 @@ export class SubscriptionComponent {
     city: ['', Validators.compose([Validators.required])],
     identityCardRecto: [null, Validators.compose([Validators.required])],
     identityCardVerso: [null, Validators.compose([Validators.required])],
+    signature: [null, [Validators.required]],
     receiptNeeded: false
   });
 
@@ -269,22 +303,34 @@ export class SubscriptionComponent {
     }
   }
 
-  private handleFileConversion(event: Event, fieldName: string): void {
-    // const reader = new FileReader();
-
-    const file: File = (event.target as any)['files']?.[0];
-    this.form.patchValue({ [fieldName]: file });
-
-    // if (file) {
-    //   reader.readAsDataURL(file);
-
-    //   reader.onload = () => {
-    //     this.form.patchValue({ [fieldName]: reader.result });
-
-    //     this.form.updateValueAndValidity();
-
-    //     this.cdr.markForCheck();
-    //   };
-    // }
+  resetSignature(): void {
+    this.signature().clear();
   }
+
+  updateSignature(): void {
+    this.form.patchValue({
+      signature: new File([this.signature().saveAsBlob()], 'signature.jpg', {
+        type: 'image/jpg'
+      })
+    });
+  }
+
+  private handleFileConversion(event: Event, fieldName: string): void {
+    const file: File = (event.target as any)['files']?.[0];
+
+    this.form.patchValue({ [fieldName]: file });
+  }
+}
+
+function dataURLtoFile(dataurl: string, filename: string): File {
+  const arr = dataurl.split(',');
+  const mime = arr[0]?.match(/:(.*?);/)?.[1];
+  const bstr = atob(arr[arr.length - 1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
 }
