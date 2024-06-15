@@ -31,7 +31,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -62,7 +62,8 @@
           "buildTarget": "sub:build:production"
         },
         "development": {
-          "buildTarget": "sub:build:development"
+          "buildTarget": "sub:build:development",
+          "hmr": true
         }
       },
       "defaultConfiguration": "development"

@@ -59,6 +59,9 @@ dependencies:
   '@spartan-ng/ui-table-brain':
     specifier: 0.0.1-alpha.351
     version: 0.0.1-alpha.351(@angular/cdk@18.0.2)(@angular/core@18.0.2)(@spartan-ng/ui-core@0.0.1-alpha.351)
+  '@stripe/stripe-js':
+    specifier: ^3.5.0
+    version: 3.5.0
   '@supabase/supabase-js':
     specifier: ^2.43.4
     version: 2.43.4
@@ -80,6 +83,12 @@ dependencies:
   luxon:
     specifier: ^3.4.4
     version: 3.4.4
+  ngx-sonner:
+    specifier: ^0.3.4
+    version: 0.3.4(@angular/common@18.0.2)(@angular/core@18.0.2)
+  ngx-stripe:
+    specifier: ^18.0.0
+    version: 18.0.0(@angular/common@18.0.2)(@angular/core@18.0.2)(@stripe/stripe-js@3.5.0)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -5075,6 +5084,11 @@ packages:
       tslib: 2.6.3
     dev: false
 
+  /@stripe/stripe-js@3.5.0:
+    resolution: {integrity: sha512-pKS3wZnJoL1iTyGBXAvCwduNNeghJHY6QSRSNNvpYnrrQrLZ6Owsazjyynu0e0ObRgks0i7Rv+pe2M7/MBTZpQ==}
+    engines: {node: '>=12.16'}
+    dev: false
+
   /@supabase/auth-js@2.64.2:
     resolution: {integrity: sha512-s+lkHEdGiczDrzXJ1YWt2y3bxRi+qIUnXcgkpLSrId7yjBeaXBFygNjTaoZLG02KNcYwbuZ9qkEIqmj2hF7svw==}
     dependencies:
@@ -9828,6 +9842,30 @@ packages:
       typescript: 5.4.5
     optionalDependencies:
       rollup: 4.18.0
+
+  /ngx-sonner@0.3.4(@angular/common@18.0.2)(@angular/core@18.0.2):
+    resolution: {integrity: sha512-kcIu0fQRQo1DGP2BDSrVwg+AU3hBHwppP3f8AtaPbV+w6gW79d/6HFCAOglpBQzVSTbwJWOi/5bMGcg7pT9TCw==}
+    peerDependencies:
+      '@angular/common': '>=17.1.0'
+      '@angular/core': '>=17.1.0'
+    dependencies:
+      '@angular/common': 18.0.2(@angular/core@18.0.2)(rxjs@7.8.1)
+      '@angular/core': 18.0.2(rxjs@7.8.1)(zone.js@0.14.7)
+      tslib: 2.6.3
+    dev: false
+
+  /ngx-stripe@18.0.0(@angular/common@18.0.2)(@angular/core@18.0.2)(@stripe/stripe-js@3.5.0):
+    resolution: {integrity: sha512-AT67vLeqEUDMnK5TfEaorumYJyOWqecbrh/1UWNtN8vF6Yzb0L/Dty3ANAa/QQi0OvBg6gXrudrhEnT8pT5lng==}
+    peerDependencies:
+      '@angular/common': '>=18.0.0 <19.0.0'
+      '@angular/core': '>=18.0.0 <19.0.0'
+      '@stripe/stripe-js': '>=3.0.0 <4.0.0'
+    dependencies:
+      '@angular/common': 18.0.2(@angular/core@18.0.2)(rxjs@7.8.1)
+      '@angular/core': 18.0.2(rxjs@7.8.1)(zone.js@0.14.7)
+      '@stripe/stripe-js': 3.5.0
+      tslib: 2.6.3
+    dev: false
 
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}

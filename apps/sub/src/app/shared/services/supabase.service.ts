@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { DateTime } from 'luxon';
+import { toast, toastState } from 'ngx-sonner';
 import { environment } from '../../../environments/environment';
 import { Subscription } from '../models/subscription.model';
 
@@ -12,6 +13,10 @@ export class SupabaseService {
   );
 
   async addSub(subscription: Subscription): Promise<void> {
+    toast.loading('Your subscription is being processed. Please wait...', {
+      duration: 10_000
+    });
+
     const now = DateTime.now().toFormat('yyyyMMdd_HHmmss');
     const uniqueId = `${subscription.lastName.toUpperCase()}_${subscription.firstName}_${now}`;
 
@@ -64,5 +69,9 @@ export class SupabaseService {
     if (error) {
       throw new Error('failed to add subs');
     }
+
+    toastState.dismiss();
+
+    toast('Your subscription has been taken into account.');
   }
 }

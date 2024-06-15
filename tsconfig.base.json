@@ -47,6 +47,9 @@
       ],
       "@spartan-ng/ui-icon-helm": [
         "packages/primitives/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-sonner-helm": [
+        "packages/primitives/ui-sonner-helm/src/index.ts"
       ]
     }
   },

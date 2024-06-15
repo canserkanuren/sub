@@ -1,10 +1,12 @@
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   inject,
-  viewChild
+  viewChild,
+  viewChildren
 } from '@angular/core';
 import {
   FormBuilder,
@@ -31,6 +33,7 @@ import {
   SignatureComponent,
   SignatureModule
 } from '@syncfusion/ej2-angular-inputs';
+import { toast } from 'ngx-sonner';
 import { Subscription } from '../../shared/models/subscription.model';
 import { SupabaseService } from '../../shared/services/supabase.service';
 
@@ -40,6 +43,7 @@ import { SupabaseService } from '../../shared/services/supabase.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgIf,
+    NgClass,
     ReactiveFormsModule,
 
     HlmButtonDirective,
@@ -181,7 +185,9 @@ import { SupabaseService } from '../../shared/services/supabase.service';
         >
           Identity card (first page)
           <input
+            #identityCardRecto
             hlmInput
+            [disabled]="form.disabled"
             class="w-full"
             type="file"
             [error]="
@@ -212,7 +218,9 @@ import { SupabaseService } from '../../shared/services/supabase.service';
         >
           Identity card (second page)
           <input
+            #identityCardVerso
             hlmInput
+            [disabled]="form.disabled"
             class="w-full"
             type="file"
             [error]="
@@ -238,23 +246,44 @@ import { SupabaseService } from '../../shared/services/supabase.service';
         </label>
 
         <span class="flex justify-between items-center">
-          <label hlmLabel>Signature</label>
+          <label
+            hlmLabel
+            [error]="
+              form.get('signature')?.touched &&
+              form.get('signature')?.errors?.['required']
+                ? true
+                : 'auto'
+            "
+          >
+            Signature
+          </label>
 
           <button
             hlmBtn
             variant="secondary"
             (click)="resetSignature()"
             type="button"
+            [disabled]="form.disabled"
           >
             Reset
           </button>
         </span>
 
-        <canvas
-          ejs-signature
-          [saveWithBackground]="true"
-          (change)="updateSignature()"
-        ></canvas>
+        @defer (on immediate; prefetch on idle) {
+          <canvas
+            class="rounded-lg w-full h-60"
+            [ngClass]="{
+              'border-destructive focus-visible:ring-destructive':
+                form.get('signature')?.touched &&
+                form.get('signature')?.errors?.['required']
+            }"
+            ejs-signature
+            [saveWithBackground]="true"
+            backgroundColor="white"
+            (change)="updateSignature()"
+          ></canvas>
+        }
+
         @if (
           form.get('signature')?.touched &&
           form.get('signature')?.errors?.['required']
@@ -262,7 +291,7 @@ import { SupabaseService } from '../../shared/services/supabase.service';
           <span hlmInputError>This field is required.</span>
         }
 
-        <button hlmBtn type="submit">Valider</button>
+        <button hlmBtn type="submit" [disabled]="form.disabled">Valider</button>
       </form>
     </section>
   `
@@ -273,19 +302,25 @@ export class SubscriptionComponent {
   readonly supabaseService = inject(SupabaseService);
 
   signature = viewChild.required(SignatureComponent);
+  identityCardData = viewChildren<ElementRef>(
+    'identityCardRecto, identityCardVerso'
+  );
 
-  form: FormGroup = this.formBuilder.group({
-    mail: ['', Validators.compose([Validators.required, Validators.email])],
-    lastName: ['', Validators.compose([Validators.required])],
-    firstName: ['', Validators.compose([Validators.required])],
-    address: ['', Validators.compose([Validators.required])],
-    zipcode: ['', Validators.compose([Validators.required])],
-    city: ['', Validators.compose([Validators.required])],
-    identityCardRecto: [null, Validators.compose([Validators.required])],
-    identityCardVerso: [null, Validators.compose([Validators.required])],
-    signature: [null, [Validators.required]],
-    receiptNeeded: false
-  });
+  form: FormGroup = this.formBuilder.group(
+    {
+      mail: ['', Validators.compose([Validators.required, Validators.email])],
+      lastName: ['', Validators.compose([Validators.required])],
+      firstName: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      zipcode: ['', Validators.compose([Validators.required])],
+      city: ['', Validators.compose([Validators.required])],
+      identityCardRecto: [null, Validators.compose([Validators.required])],
+      identityCardVerso: [null, Validators.compose([Validators.required])],
+      signature: [null, [Validators.required]],
+      receiptNeeded: false
+    },
+    { updateOn: 'blur' }
+  );
 
   updateIdentityCardRecto(event: Event): void {
     this.handleFileConversion(event, 'identityCardRecto');
@@ -295,16 +330,10 @@ export class SubscriptionComponent {
     this.handleFileConversion(event, 'identityCardVerso');
   }
 
-  submitSub(): void {
-    if (this.form.valid) {
-      this.supabaseService.addSub(new Subscription(this.form.getRawValue()));
-    } else {
-      this.form.markAllAsTouched();
-    }
-  }
-
   resetSignature(): void {
     this.signature().clear();
+
+    this.form.patchValue({ signature: null });
   }
 
   updateSignature(): void {
@@ -315,22 +344,38 @@ export class SubscriptionComponent {
     });
   }
 
+  async submitSub(): Promise<void> {
+    if (this.form.valid) {
+      this.form.disable();
+
+      try {
+        await this.supabaseService.addSub(
+          new Subscription(this.form.getRawValue())
+        );
+
+        this.form.reset();
+
+        this.resetSignature();
+        this.resetIdentityCardData();
+      } catch (e) {
+        toast.error('An error occurred... Please try again.');
+      } finally {
+        this.form.enable();
+      }
+    } else {
+      this.form.markAllAsTouched();
+    }
+  }
+
   private handleFileConversion(event: Event, fieldName: string): void {
     const file: File = (event.target as any)['files']?.[0];
 
     this.form.patchValue({ [fieldName]: file });
   }
-}
 
-function dataURLtoFile(dataurl: string, filename: string): File {
-  const arr = dataurl.split(',');
-  const mime = arr[0]?.match(/:(.*?);/)?.[1];
-  const bstr = atob(arr[arr.length - 1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
+  private resetIdentityCardData(): void {
+    this.identityCardData().forEach(input => {
+      input.nativeElement.value = '';
+    });
   }
-  return new File([u8arr], filename, { type: mime });
 }
