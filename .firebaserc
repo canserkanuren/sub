@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "subscription-websitew"
+  },
+  "targets": {
+    "subscription-websitew": {
+      "hosting": {
+        "subscription-websitew-dev": [
+          "sub-dev"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
