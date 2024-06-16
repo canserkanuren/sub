@@ -39,7 +39,13 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/sub/src/environments/environment.ts",
+              "with": "apps/sub/src/environments/environment.production.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
@@ -67,12 +73,6 @@
         }
       },
       "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "sub:build"
-      }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
