@@ -16,13 +16,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: 'pnpm'
 
-      - name: Install firebase tools
-        run: pnpm install -g firebase-tools
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install firebase-tools
+        run: pnpm i -g firebase-tools
 
       - name: Run install
         run: pnpm install
@@ -30,7 +49,10 @@ jobs:
       - name: Build development environment
         run: pnpm run build:dev
 
-      - name: Deploy to Firebase
-        run: firebase deploy --only hosting:dev
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUBSCRIPTION_WEBSITEW }}
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUBSCRIPTION_WEBSITEW }}
+          projectId: subscription-websitew
+          target: dev
+          channelId: live
