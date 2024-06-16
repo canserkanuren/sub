@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "subscription-websitew-dev",
+      "target": "dev",
       "public": "dist/apps/sub/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "target": "subscription-websitew",
+      "target": "prod",
       "public": "dist/apps/sub/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
