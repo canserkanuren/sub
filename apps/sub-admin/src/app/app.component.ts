@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
 
 @Component({
-  selector: 'app-root',
+  selector: 'sub-admin-root',
   standalone: true,
-  imports: [RouterModule, HlmToasterComponent],
+  imports: [RouterOutlet, HlmToasterComponent],
   template: `
     <hlm-toaster position="top-center" invert />
     <section class="w-screen h-screen flex justify-center md:p-10 p-5">

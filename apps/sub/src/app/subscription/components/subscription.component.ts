@@ -1,7 +1,6 @@
 import { NgClass, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
@@ -297,7 +296,6 @@ import { SupabaseService } from '../../shared/services/supabase.service';
   `
 })
 export class SubscriptionComponent {
-  readonly cdr = inject(ChangeDetectorRef);
   readonly formBuilder = inject(FormBuilder);
   readonly supabaseService = inject(SupabaseService);
 

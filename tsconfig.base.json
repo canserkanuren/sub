@@ -10,10 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -24,8 +21,14 @@
       "@spartan-ng/ui-card-helm": [
         "packages/primitives/ui-card-helm/src/index.ts"
       ],
+      "@spartan-ng/ui-checkbox-helm": [
+        "packages/primitives/ui-checkbox-helm/src/index.ts"
+      ],
       "@spartan-ng/ui-dialog-helm": [
         "packages/primitives/ui-dialog-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-icon-helm": [
+        "packages/primitives/ui-icon-helm/src/index.ts"
       ],
       "@spartan-ng/ui-input-helm": [
         "packages/primitives/ui-input-helm/src/index.ts"
@@ -33,28 +36,25 @@
       "@spartan-ng/ui-label-helm": [
         "packages/primitives/ui-label-helm/src/index.ts"
       ],
+      "@spartan-ng/ui-menu-helm": [
+        "packages/primitives/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-select-helm": [
+        "packages/primitives/ui-select-helm/src/index.ts"
+      ],
       "@spartan-ng/ui-skeleton-helm": [
         "packages/primitives/ui-skeleton-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-sonner-helm": [
+        "packages/primitives/ui-sonner-helm/src/index.ts"
       ],
       "@spartan-ng/ui-table-helm": [
         "packages/primitives/ui-table-helm/src/index.ts"
       ],
       "@spartan-ng/ui-typography-helm": [
         "packages/primitives/ui-typography-helm/src/index.ts"
-      ],
-      "@spartan-ng/ui-checkbox-helm": [
-        "packages/primitives/ui-checkbox-helm/src/index.ts"
-      ],
-      "@spartan-ng/ui-icon-helm": [
-        "packages/primitives/ui-icon-helm/src/index.ts"
-      ],
-      "@spartan-ng/ui-sonner-helm": [
-        "packages/primitives/ui-sonner-helm/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
