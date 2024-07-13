@@ -61,6 +61,7 @@ export class SupabaseService {
       address: subscription.address,
       zipcode: subscription.zipcode,
       city: subscription.city,
+      receipt_needed: subscription.receiptNeeded,
       identity_card_recto_url: identityCardRectoData?.path,
       identity_card_verso_url: identityCardVersoData?.path,
       signature_url: signatureData?.path

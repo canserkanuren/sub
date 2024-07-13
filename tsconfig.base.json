@@ -53,7 +53,8 @@
       ],
       "@spartan-ng/ui-typography-helm": [
         "packages/primitives/ui-typography-helm/src/index.ts"
-      ]
+      ],
+      "@subw/supabase": ["packages/supabase/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
