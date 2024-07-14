@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve sub",
-    "start:admin": "nx serve sub-admin-v2",
     "build": "nx run sub:build:production",
     "build:dev": "nx run sub:build:development",
-    "build:admin": "nx run sub-admin-v2:build:production"
+    "start:admin": "nx serve sub-admin-v2",
+    "build:admin": "nx run sub-admin-v2:build:production",
+    "build:admin:dev": "nx run sub-admin-v2:build:development"
   },
   "private": true,
   "dependencies": {

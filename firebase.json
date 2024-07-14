@@ -24,7 +24,7 @@
     },
     {
       "target": "dev-admin",
-      "public": "dist/apps/admin/browser",
+      "public": "dist/apps/sub-admin-v2/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
@@ -35,7 +35,7 @@
     },
     {
       "target": "prod-admin",
-      "public": "dist/apps/admin/browser",
+      "public": "dist/apps/sub-admin-v2/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

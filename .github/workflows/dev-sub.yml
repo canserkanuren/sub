@@ -5,7 +5,7 @@ name: sub (develop)
 on:
   workflow_dispatch:
   push:
-    branches-ignore:
+    branches:
       - 'develop'
       - '!main'
     paths:
