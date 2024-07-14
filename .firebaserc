@@ -10,11 +10,7 @@
         ],
         "prod-sub": [
           "subscription-websitew"
-        ]
-      }
-    },
-    "subscription-admin-websitew": {
-      "hosting": {
+        ],
         "dev-admin": [
           "subscription-admin-websitew-dev"
         ],
