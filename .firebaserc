@@ -5,11 +5,21 @@
   "targets": {
     "subscription-websitew": {
       "hosting": {
-        "dev": [
+        "dev-sub": [
           "subscription-websitew-dev"
         ],
-        "prod": [
+        "prod-sub": [
           "subscription-websitew"
+        ]
+      }
+    },
+    "subscription-admin-websitew": {
+      "hosting": {
+        "dev-admin": [
+          "subscription-admin-websitew-dev"
+        ],
+        "prod-admin": [
+          "subscription-admin-websitew"
         ]
       }
     }

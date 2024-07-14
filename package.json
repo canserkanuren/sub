@@ -6,7 +6,8 @@
     "start": "nx serve sub",
     "start:admin": "nx serve sub-admin-v2",
     "build": "nx run sub:build:production",
-    "build:dev": "nx run sub:build:development"
+    "build:dev": "nx run sub:build:development",
+    "build:admin": "nx run sub-admin-v2:build:production"
   },
   "private": true,
   "dependencies": {

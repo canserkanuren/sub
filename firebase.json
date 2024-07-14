@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "dev",
+      "target": "dev-sub",
       "public": "dist/apps/sub/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -12,8 +12,30 @@
       ]
     },
     {
-      "target": "prod",
+      "target": "prod-sub",
       "public": "dist/apps/sub/browser",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "dev-admin",
+      "public": "dist/apps/admin/browser",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "prod-admin",
+      "public": "dist/apps/admin/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
