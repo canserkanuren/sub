@@ -1,6 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
@@ -300,8 +301,9 @@ import { SupabaseService } from '../../shared/services/supabase.service';
   `
 })
 export class SubscriptionComponent {
-  readonly formBuilder = inject(FormBuilder);
-  readonly supabaseService = inject(SupabaseService);
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly supabaseService = inject(SupabaseService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   signature = viewChild.required(SignatureComponent);
   identityCardData = viewChildren<ElementRef>(
@@ -367,6 +369,8 @@ export class SubscriptionComponent {
         toast.error('An error occurred... Please try again.');
       } finally {
         this.form.enable();
+
+        this.cdr.detectChanges();
       }
     } else {
       this.form.markAllAsTouched();

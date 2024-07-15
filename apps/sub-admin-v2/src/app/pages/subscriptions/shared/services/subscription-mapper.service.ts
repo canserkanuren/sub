@@ -19,7 +19,7 @@ export class SubscriptionMapperService {
     };
   }
 
-  mapToModel(subscriptionDto: SubscriptionDto): Partial<Subscription> {
+  mapToModel(subscriptionDto: SubscriptionDto): Subscription {
     return {
       id: subscriptionDto.id,
       lastName: subscriptionDto.last_name,
@@ -28,7 +28,19 @@ export class SubscriptionMapperService {
       address: subscriptionDto.address,
       zipcode: subscriptionDto.zipcode,
       city: subscriptionDto.city,
-      receiptNeeded: subscriptionDto.receipt_needed
+      receiptNeeded: subscriptionDto.receipt_needed,
+      identityCardRecto: {
+        url: subscriptionDto.identity_card_recto_url,
+        file: null
+      },
+      identityCardVerso: {
+        url: subscriptionDto.identity_card_verso_url,
+        file: null
+      },
+      signature: {
+        url: subscriptionDto.signature_url,
+        file: null
+      }
     };
   }
 }

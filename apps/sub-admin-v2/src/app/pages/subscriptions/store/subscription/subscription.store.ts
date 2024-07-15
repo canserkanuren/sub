@@ -1,51 +1,21 @@
-import { inject } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { EMPTY, pipe, switchMap } from 'rxjs';
-import { SubscriptionDto } from '../../shared/models/subscription.dto';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
+import { signalStore, withState } from '@ngrx/signals';
 import { Subscription } from '../../shared/models/subscription.model';
-import { SubscriptionMapperService } from '../../shared/services/subscription-mapper.service';
-import { SubscriptionService } from '../../shared/services/subscription.service';
+import { withSubscriptionStoreMethods } from './subscription.store.methods';
 
-type SubscriptionState = {
-  subscriptions: Partial<Subscription>[];
+export type SubscriptionState = {
+  subscriptions: Subscription[];
+  selectedSubscription: Subscription | null;
 };
 
 const initialState: SubscriptionState = {
-  subscriptions: []
+  subscriptions: [],
+  selectedSubscription: null
 };
 
 export const SubscriptionStore = signalStore(
   { providedIn: 'root' },
+  withDevtools('subscriptions'),
   withState(initialState),
-  withMethods(
-    (
-      store,
-      subscriptionService = inject(SubscriptionService),
-      subscriptionMapperService = inject(SubscriptionMapperService)
-    ) => ({
-      loadSubscriptions: rxMethod<{ start: number; end: number }>(
-        pipe(
-          switchMap(params =>
-            subscriptionService.getSubscriptions(params.start, params.end).pipe(
-              switchMap(({ error, data }) => {
-                if (error) {
-                  console.error(error);
-                } else {
-                  patchState(store, {
-                    subscriptions: (data as SubscriptionDto[]).map(
-                      subscription =>
-                        subscriptionMapperService.mapToModel(subscription)
-                    )
-                  });
-                }
-
-                return EMPTY;
-              })
-            )
-          )
-        )
-      )
-    })
-  )
+  withSubscriptionStoreMethods()
 );

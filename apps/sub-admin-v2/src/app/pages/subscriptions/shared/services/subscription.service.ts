@@ -9,12 +9,32 @@ import { SupabaseService } from '../../../../core/supabase/supabase.service';
 export class SubscriptionService {
   private readonly supabaseService = inject(SupabaseService);
 
-  getSubscriptions(start: number, end: number): Observable<any> {
+  getSubscriptions(start: number, end: number, size: number): Observable<any> {
+    const rangeStart = start * size;
     return from(
       this.supabaseService.client
         .from('subscriptions')
         .select()
-        .range(start, end)
+        .range(rangeStart, size)
+        .order('created_at', { ascending: false })
+    );
+  }
+
+  getSubscriptionById(id: number): Observable<any> {
+    return from(
+      this.supabaseService.client
+        .from('subscriptions')
+        .select()
+        .eq('id', id)
+        .single()
+    );
+  }
+
+  getFileFromBucket(fileName: string): Observable<any> {
+    return from(
+      this.supabaseService.client.storage
+        .from('identityCards')
+        .createSignedUrl(fileName, 6000)
     );
   }
 }

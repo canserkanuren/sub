@@ -10,7 +10,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -54,8 +57,16 @@
       "@spartan-ng/ui-typography-helm": [
         "packages/primitives/ui-typography-helm/src/index.ts"
       ],
-      "@subw/supabase": ["packages/supabase/src/index.ts"]
+      "@subw/supabase": [
+        "packages/supabase/src/index.ts"
+      ],
+      "@spartan-ng/ui-tabs-helm": [
+        "packages/primitives/ui-tabs-helm/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

@@ -6,14 +6,8 @@ export class Subscription {
   address!: string;
   zipcode!: string;
   city!: string;
-  identityCardRecto!: File;
-  identityCardVerso!: File;
-  signature!: File;
+  identityCardRecto!: { url: string; file: File | null };
+  identityCardVerso!: { url: string; file: File | null };
+  signature!: { url: string; file: File | null };
   receiptNeeded!: boolean;
-
-  constructor(model?: unknown) {
-    if (model) {
-      Object.assign(this, model);
-    }
-  }
 }

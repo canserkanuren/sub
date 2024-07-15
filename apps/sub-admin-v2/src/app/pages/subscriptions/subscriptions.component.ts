@@ -7,7 +7,8 @@ import {
   effect,
   inject,
   signal,
-  TrackByFunction
+  TrackByFunction,
+  untracked
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
@@ -35,9 +36,18 @@ import {
   useBrnColumnManager
 } from '@spartan-ng/ui-table-brain';
 import { HlmTableModule } from '@spartan-ng/ui-table-helm';
+import { get } from 'lodash';
 import { map } from 'rxjs';
+import { BooleanPipe } from '../../shared/pipes/boolean.pipe';
 import { Subscription } from './shared/models/subscription.model';
 import { SubscriptionStore } from './store/subscription/subscription.store';
+
+type SubscriptionColumns =
+  | keyof Omit<
+      Subscription,
+      'identityCardRecto' | 'identityCardVerso' | 'signature' | 'receiptNeeded'
+    >
+  | '';
 
 @Component({
   selector: 'sub-admin-subscriptions',
@@ -57,7 +67,9 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
     HlmInputDirective,
     HlmCheckboxCheckIconComponent,
     HlmCheckboxComponent,
-    HlmSelectModule
+    HlmSelectModule,
+
+    BooleanPipe
   ],
   providers: [
     provideIcons({ lucideChevronDown, lucideMoreHorizontal, lucideArrowUpDown })
@@ -75,7 +87,7 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
       [trackBy]="_trackBy"
       [onRowClick]="goToDetail.bind(this)"
     >
-      <brn-column-def name="select" class="w-12">
+      <!-- <brn-column-def name="select" class="w-12">
         <hlm-th *brnHeaderDef>
           <hlm-checkbox
             [checked]="_checkboxState()"
@@ -88,31 +100,71 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
             (changed)="toggleSubscription(element)"
           />
         </hlm-td>
-      </brn-column-def>
+      </brn-column-def> -->
 
       <brn-column-def name="lastName" class="w-32 sm:w-40">
-        <hlm-th *brnHeaderDef>Last Name</hlm-th>
+        <hlm-th *brnHeaderDef>
+          <button
+            hlmBtn
+            size="sm"
+            variant="ghost"
+            (click)="handleSortChange('lastName')"
+          >
+            Last Name
+            <hlm-icon class="ml-3" size="sm" name="lucideArrowUpDown" />
+          </button>
+        </hlm-th>
         <hlm-td *brnCellDef="let element">
           {{ element.lastName | uppercase }}
         </hlm-td>
       </brn-column-def>
 
       <brn-column-def name="firstName" class="w-32 sm:w-40">
-        <hlm-th *brnHeaderDef>First Name</hlm-th>
+        <hlm-th *brnHeaderDef>
+          <button
+            hlmBtn
+            size="sm"
+            variant="ghost"
+            (click)="handleSortChange('firstName')"
+          >
+            First Name
+            <hlm-icon class="ml-3" size="sm" name="lucideArrowUpDown" />
+          </button>
+        </hlm-th>
         <hlm-td *brnCellDef="let element">
           {{ element.firstName }}
         </hlm-td>
       </brn-column-def>
 
       <brn-column-def name="mail" class="w-56 justify-center">
-        <hlm-th *brnHeaderDef> Mail </hlm-th>
+        <hlm-th *brnHeaderDef>
+          <button
+            hlmBtn
+            size="sm"
+            variant="ghost"
+            (click)="handleSortChange('mail')"
+          >
+            Mail
+            <hlm-icon class="ml-3" size="sm" name="lucideArrowUpDown" />
+          </button>
+        </hlm-th>
         <hlm-td *brnCellDef="let element">
           {{ element.mail }}
         </hlm-td>
       </brn-column-def>
 
       <brn-column-def name="address" class="w-60 flex-1 justify-center">
-        <hlm-th *brnHeaderDef>Address</hlm-th>
+        <hlm-th *brnHeaderDef>
+          <button
+            hlmBtn
+            size="sm"
+            variant="ghost"
+            (click)="handleSortChange('address')"
+          >
+            Address
+            <hlm-icon class="ml-3" size="sm" name="lucideArrowUpDown" />
+          </button>
+        </hlm-th>
         <hlm-td class="font-medium tabular-nums" *brnCellDef="let element">
           {{ element.address }} - {{ element.zipcode }} {{ element.city }}
         </hlm-td>
@@ -121,7 +173,7 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
       <brn-column-def name="receiptNeeded" class="w-40 justify-center">
         <hlm-th *brnHeaderDef>Is Receipt Needed</hlm-th>
         <hlm-td *brnCellDef="let element">
-          <hlm-checkbox [checked]="element.receiptNeeded" [disabled]="true" />
+          {{ element.receiptNeeded | boolean }}
         </hlm-td>
       </brn-column-def>
 
@@ -165,6 +217,7 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
         No data
       </div>
     </brn-table>
+
     <div
       class="flex flex-col justify-between mt-4 sm:flex-row sm:items-center"
       *brnPaginator="
@@ -182,7 +235,8 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
         <brn-select
           class="inline-block"
           placeholder="{{ _availablePageSizes[0] }}"
-          [(ngModel)]="_pageSize"
+          [ngModel]="_pageSize"
+          (ngModelChange)="_pageSize.set($event)"
         >
           <hlm-select-trigger class="inline-flex mr-1 w-15 h-9">
             <hlm-select-value />
@@ -248,7 +302,7 @@ export class SubscriptionsComponent {
     receiptNeeded: { visible: true }
   });
   protected readonly _allDisplayedColumns = computed(() => [
-    'select',
+    // 'select',
     ...(this._brnColumnManager.displayedColumns() as string[])
     // 'actions'
   ]);
@@ -257,12 +311,31 @@ export class SubscriptionsComponent {
   private readonly _filteredSubscriptions = computed(() =>
     this._subscriptions()
   );
+  private readonly _sort = signal<{
+    column: SubscriptionColumns;
+    direction: 'ASC' | 'DESC' | null;
+  }>({ column: '', direction: null });
   protected readonly _filteredSortedPaginatedSubscriptions = computed(() => {
+    const { column, direction } = this._sort();
     const start = this._displayedIndices().start;
     const end = this._displayedIndices().end + 1;
     const subscriptions = this._filteredSubscriptions();
 
-    return subscriptions.slice(start, end);
+    if (!column || !direction) {
+      return subscriptions.slice(start, end);
+    }
+
+    return [...subscriptions]
+      .sort((s1: Subscription, s2: Subscription) => {
+        const s1Value = get<Subscription, SubscriptionColumns>(s1, column);
+        const s2Value = get<Subscription, SubscriptionColumns>(s2, column);
+
+        return (
+          (direction === 'ASC' ? 1 : -1) *
+          (s1Value?.localeCompare(s2Value ?? '') ?? 0)
+        );
+      })
+      .slice(start, end);
   });
 
   protected readonly _allFilteredPaginatedSubscriptionsSelected = computed(() =>
@@ -296,12 +369,17 @@ export class SubscriptionsComponent {
 
   // effects
   private loadSubscriptionEffect = effect(() => {
-    const { end } = this._displayedIndices();
-    end > 0 &&
-      this.store.loadSubscriptions({
-        start: this._displayedIndices().start,
-        end: this._displayedIndices().end
-      });
+    const { start, end } = this._displayedIndices();
+    const size = this._pageSize();
+
+    untracked(() => {
+      end > 0 &&
+        this.store.loadSubscriptions({
+          start,
+          end,
+          size
+        });
+    });
   });
 
   protected toggleSubscription(subscription: Subscription) {
@@ -323,5 +401,22 @@ export class SubscriptionsComponent {
 
   protected goToDetail(subscription: Partial<Subscription>) {
     this.router.navigate(['/subscriptions', subscription.id]);
+  }
+
+  protected handleSortChange(columnToSortOn: SubscriptionColumns): void {
+    const { direction, column } = this._sort();
+    let d = direction;
+
+    if (column !== columnToSortOn) {
+      d = 'ASC';
+    } else if (d === 'ASC') {
+      d = 'DESC';
+    } else if (d === 'DESC') {
+      d = null;
+    } else {
+      d = 'ASC';
+    }
+
+    this._sort.set({ column: columnToSortOn, direction: d });
   }
 }

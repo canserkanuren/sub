@@ -18,7 +18,7 @@ export class SupabaseService {
     });
 
     const now = DateTime.now().toFormat('yyyyMMdd_HHmmss');
-    const uniqueId = `${subscription.lastName.toUpperCase()}_${subscription.firstName}_${now}`;
+    const uniqueId = `${subscription.lastName.toUpperCase().split(' ').join('')}_${subscription.firstName.split(' ').join('')}_${now}`;
 
     const { error: identityCardRectoError, data: identityCardRectoData } =
       await this.supabase.storage

@@ -6,13 +6,12 @@ on:
   workflow_dispatch:
   push:
     branches-ignore:
-      - 'main'
+      - main
     paths:
       - '!apps/sub-admin-v2/**'
   pull_request:
-    branches:
-      - 'develop'
-      - '!main'
+    branches-ignore:
+      - main
 
 jobs:
   build_and_deploy_dev:
