@@ -70,10 +70,10 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
       hlm
       stickyHeader
       class="border-border mt-4 block h-auto overflow-auto rounded-md border"
+      bodyRowClasses="w-full"
       [dataSource]="_filteredSortedPaginatedSubscriptions()"
       [displayedColumns]="_allDisplayedColumns()"
       [trackBy]="_trackBy"
-      [onRowClick]="goToDetail.bind(this)"
     >
       <brn-column-def name="select" class="w-12">
         <hlm-th *brnHeaderDef>
@@ -111,22 +111,22 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="address" class="w-60">
+      <brn-column-def name="address" class="w-60 flex-1">
         <hlm-th *brnHeaderDef>Address</hlm-th>
         <hlm-td class="font-medium tabular-nums" *brnCellDef="let element">
           {{ element.address }} - {{ element.zipcode }} {{ element.city }}
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="receiptNeeded" class="w-40">
+      <brn-column-def name="receiptNeeded" class="w-40 justify-center">
         <hlm-th *brnHeaderDef>Is Receipt Needed</hlm-th>
         <hlm-td *brnCellDef="let element">
           <hlm-checkbox [checked]="element.receiptNeeded" [disabled]="true" />
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="actions" class="w-16 justify-end">
-        <hlm-th *brnHeaderDef></hlm-th>
+      <brn-column-def name="actions" class="justify-end">
+        <hlm-th *brnHeaderDef>Actions</hlm-th>
         <hlm-td *brnCellDef="let element">
           <button
             hlmBtn
@@ -143,12 +143,15 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
               <hlm-menu-label>Actions</hlm-menu-label>
               <hlm-menu-separator />
               <hlm-menu-group>
-                <button hlmMenuItem>Copy payment ID</button>
+                <button hlmMenuItem (click)="goToDetail(element)">
+                  Detail
+                </button>
               </hlm-menu-group>
               <hlm-menu-separator />
               <hlm-menu-group>
-                <button hlmMenuItem>View customer</button>
-                <button hlmMenuItem>View payment details</button>
+                <button hlmMenuItem>
+                  <span class="text-red">Delete</span>
+                </button>
               </hlm-menu-group>
             </hlm-menu>
           </ng-template>

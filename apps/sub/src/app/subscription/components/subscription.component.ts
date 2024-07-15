@@ -240,7 +240,11 @@ import { SupabaseService } from '../../shared/services/supabase.service';
         </label>
 
         <label class="flex items-center" hlmLabel>
-          <hlm-checkbox class="mr-2" formControlName="receiptNeeded" />
+          <hlm-checkbox
+            class="mr-2"
+            formControlName="receiptNeeded"
+            (changed)="updateReceiptNeeded($event)"
+          />
           Would you like a receipt ?
         </label>
 
@@ -326,6 +330,10 @@ export class SubscriptionComponent {
 
   updateIdentityCardVerso(event: Event): void {
     this.handleFileConversion(event, 'identityCardVerso');
+  }
+
+  updateReceiptNeeded(checked: boolean): void {
+    this.form.patchValue({ receiptNeeded: checked });
   }
 
   resetSignature(): void {

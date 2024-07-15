@@ -5,9 +5,8 @@ name: sub (develop)
 on:
   workflow_dispatch:
   push:
-    branches:
-      - 'develop'
-      - '!main'
+    branches-ignore:
+      - 'main'
     paths:
       - '!apps/sub-admin-v2/**'
   pull_request:
