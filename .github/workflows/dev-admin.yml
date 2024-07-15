@@ -58,5 +58,5 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUBSCRIPTION_WEBSITEW }}
           projectId: subscription-websitew
-          target: prod-admin
+          target: dev-admin
           channelId: live

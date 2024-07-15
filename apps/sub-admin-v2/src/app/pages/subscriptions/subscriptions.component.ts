@@ -70,10 +70,10 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
       hlm
       stickyHeader
       class="border-border mt-4 block h-auto overflow-auto rounded-md border"
-      bodyRowClasses="w-full"
       [dataSource]="_filteredSortedPaginatedSubscriptions()"
       [displayedColumns]="_allDisplayedColumns()"
       [trackBy]="_trackBy"
+      [onRowClick]="goToDetail.bind(this)"
     >
       <brn-column-def name="select" class="w-12">
         <hlm-th *brnHeaderDef>
@@ -91,27 +91,27 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
       </brn-column-def>
 
       <brn-column-def name="lastName" class="w-32 sm:w-40">
-        <hlm-th truncate *brnHeaderDef>Last Name</hlm-th>
-        <hlm-td truncate *brnCellDef="let element">
+        <hlm-th *brnHeaderDef>Last Name</hlm-th>
+        <hlm-td *brnCellDef="let element">
           {{ element.lastName | uppercase }}
         </hlm-td>
       </brn-column-def>
 
       <brn-column-def name="firstName" class="w-32 sm:w-40">
-        <hlm-th truncate *brnHeaderDef>First Name</hlm-th>
-        <hlm-td truncate *brnCellDef="let element">
+        <hlm-th *brnHeaderDef>First Name</hlm-th>
+        <hlm-td *brnCellDef="let element">
           {{ element.firstName }}
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="mail" class="w-56">
+      <brn-column-def name="mail" class="w-56 justify-center">
         <hlm-th *brnHeaderDef> Mail </hlm-th>
-        <hlm-td truncate *brnCellDef="let element">
+        <hlm-td *brnCellDef="let element">
           {{ element.mail }}
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="address" class="w-60 flex-1">
+      <brn-column-def name="address" class="w-60 flex-1 justify-center">
         <hlm-th *brnHeaderDef>Address</hlm-th>
         <hlm-td class="font-medium tabular-nums" *brnCellDef="let element">
           {{ element.address }} - {{ element.zipcode }} {{ element.city }}
@@ -125,7 +125,8 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
         </hlm-td>
       </brn-column-def>
 
-      <brn-column-def name="actions" class="justify-end">
+      <!-- check if needed -->
+      <!-- <brn-column-def name="actions" class="justify-end">
         <hlm-th *brnHeaderDef>Actions</hlm-th>
         <hlm-td *brnCellDef="let element">
           <button
@@ -156,7 +157,7 @@ import { SubscriptionStore } from './store/subscription/subscription.store';
             </hlm-menu>
           </ng-template>
         </hlm-td>
-      </brn-column-def>
+      </brn-column-def> -->
       <div
         class="flex items-center justify-center p-20 text-muted-foreground"
         brnNoDataRow
@@ -248,8 +249,8 @@ export class SubscriptionsComponent {
   });
   protected readonly _allDisplayedColumns = computed(() => [
     'select',
-    ...(this._brnColumnManager.displayedColumns() as string[]),
-    'actions'
+    ...(this._brnColumnManager.displayedColumns() as string[])
+    // 'actions'
   ]);
 
   private readonly _subscriptions = this.store.subscriptions;
